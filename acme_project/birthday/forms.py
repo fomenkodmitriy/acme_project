@@ -8,9 +8,7 @@ class BirthdayForm(forms.ModelForm):
         model = Birthday
         fields = '__all__'
         widgets = {
-            'birthday': forms.DateInput(attrs={'type': 'date'}),
-        }
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields['birthday'].input_formats = ['%Y-%m-%d']
- 
+            'birthday': forms.DateInput(
+                attrs={'type': 'date'},
+                format='%Y-%m-%d',
+            )}
