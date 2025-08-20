@@ -13,6 +13,7 @@ class Birthday(models.Model):
         'Дата рождения',
         validators=(real_age,),
         )
+
     class Meta:
         constraints = [
             models.UniqueConstraint(
