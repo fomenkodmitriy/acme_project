@@ -1,4 +1,6 @@
-from django.views.generic import CreateView, DeleteView, ListView, UpdateView
+from django.views.generic import (
+    CreateView, DeleteView, DetailView, ListView, UpdateView
+)
 from django.urls import reverse_lazy
 
 from .forms import BirthdayForm
@@ -8,7 +10,6 @@ from .utils import calculate_birthday_countdown
 
 class BirthdayMixin:
     model = Birthday
-    success_url = reverse_lazy('birthday:list')
 
 
 class BirthdayCreateView(BirthdayMixin, CreateView):
@@ -27,3 +28,14 @@ class BirthdayListView(ListView):
 
 class BirthdayDeleteView(BirthdayMixin, DeleteView):
     pass
+
+
+class BirthdayDetailView(BirthdayMixin, DetailView):
+    pass
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['birthday_countdown'] = calculate_birthday_countdown(
+            self.object.birthday
+        )
+        return context
